@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.base.mapper.IplogMapper" >
+  <resultMap id="BaseResultMap" type="com.mo.base.entity.Iplog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="loginstate" property="loginstate" jdbcType="TINYINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="logininfoId" property="logininfoId" jdbcType="BIGINT" />
+    <result column="loginType" property="loginType" jdbcType="TINYINT" />
+    <result column="loginTime" property="loginTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" >
+    insert into `iplog` (ip, loginstate, username,
+      logininfoId, loginType, loginTime
+      )
+    values (
+      #{ip,jdbcType=VARCHAR},
+      #{loginstate,jdbcType=TINYINT},
+      #{username,jdbcType=VARCHAR},
+      #{logininfoId,jdbcType=BIGINT},
+      #{loginType,jdbcType=TINYINT},
+      #{loginTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+    <sql id="base_where">
+        <where>
+            <if test="beginDate!=null">
+                AND loginTime &gt;= #{beginDate}
+            </if>
+            <if test="endDate!=null">
+                AND loginTime &lt;= #{endDate}
+            </if>
+            <if test="loginType>-1">
+                AND loginType = #{loginType}
+            </if>
+            <if test="loginstate>-1">
+                AND loginstate = #{loginstate}
+            </if>
+            <if test="username!=null">
+                AND username = #{username}
+            </if>
+        </where>
+    </sql>
+
+  <select id="queryForCount"  resultType="int" >
+    select COUNT(id)
+    from `iplog`
+   <include refid="base_where"/>
+  </select>
+
+  <select id="query" resultMap="BaseResultMap" >
+    select id, ip, loginstate, username, logininfoId, loginType, loginTime
+    from `iplog`
+   <include refid="base_where"/>
+      ORDER BY loginTime DESC
+     LIMIT #{start},#{pageSize}
+  </select>
+</mapper>

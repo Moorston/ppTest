@@ -1,0 +1,123 @@
+body{
+     font: 14px/1.5 "Verdana","微软雅黑",YaHei,tahoma, arial, Hiragino Sans GB,"宋体";
+ }
+
+/*顶部导航栏css设置*/
+.sm-header{
+    background-color: #1a2129;
+    color:#333333;
+}
+.sm-header .navbar-nav>li{
+   margin: 0px 20px 0px 10px;
+}
+.help-li{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.sm-header .navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #fff;
+}
+
+.sm-header .navbar-nav>li>a:HOVER{
+    background: transparent;
+    color: #00a7ff;
+    text-decoration: underline;
+}
+.sm-header .navbar-nav>li>.sm-current-user, .sm-header .navbar-nav>li>.sm-current-user:HOVER
+{
+    color: #00a7ff;
+    font-weight: bold;
+    text-decoration: none;
+}
+.nav .open>a.sm-current-user, .nav .open>a.sm-current-user:hover {
+    background: transparent;
+}
+.sm-header .nav>li>a:FOCUS {
+    background: transparent;
+}
+
+/*导航栏设置*/
+.sm-navbar{
+    margin-top: -2px;
+    margin-bottom: 10px;
+    border-top: hidden;
+}
+.sm-navbar .navbar-header {
+    padding-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 50px;
+}
+
+.sm-navbar .navbar-nav {
+    margin-left: 100px;
+}
+.sm-navbar .navbar-nav>li>a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-left: 30px;
+    min-width: 100px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 16px;
+}
+
+
+.sm-navbar .navbar-nav>li>a:HOVER {
+    background: none repeat scroll 0 0 #f0f0f0;
+    color: #09d;
+}
+
+/*--copyrights--*/
+.copy-rights{
+    border: 0.2px groove #9F9FA0;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.copy-rights p{
+    position:absolute;
+    padding-left: 280px;
+    color:#1a2129;
+    font-size: 1em;
+    line-height:1.8em;
+}
+.copy-rights p a{
+    color:#ff2a75;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    text-decoration:none;
+}
+.copy-rights p a:hover{
+    color:#3faa53;
+    text-decoration:none;
+    transition: 0.1s all;
+    -webkit-transition: 0.1s all;
+    -moz-transition: 0.1s all;
+    -o-transition: 0.1s all;
+}
+
+.bg {
+    background: url('/images/bottom.png');
+    height: 40px;
+    text-align: center;
+    line-height: 600px;
+}
+.bg-blur {
+    float: left;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+/*--/copyrights--*/

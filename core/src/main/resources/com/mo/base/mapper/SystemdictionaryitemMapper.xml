@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.base.mapper.SystemDictionaryItemMapper" >
+
+    <resultMap type="SystemDictionaryItem" id="smallResultMap">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+    </resultMap>
+
+  <resultMap id="BaseResultMap" type="SystemDictionaryItem" extends="smallResultMap" >
+    <result column="parentId" property="parentId" jdbcType="BIGINT" />
+    <result column="sequence" property="sequence" jdbcType="TINYINT" />
+  </resultMap>
+
+    <insert id="insert" parameterType="com.mo.base.entity.SystemDictionaryItem" useGeneratedKeys="true" keyProperty="id" >
+    insert into `systemdictionaryitem` (parentId, title, sequence
+      )
+    values (#{parentid,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{sequence,jdbcType=TINYINT}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.mo.base.entity.SystemDictionaryItem" >
+    update `systemdictionaryitem`
+    set parentId = #{parentid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      sequence = #{sequence,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <sql id="base_column">
+        id, parentId, title, sequence
+    </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, parentId, title, sequence
+    from `systemdictionaryitem`
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+</mapper>

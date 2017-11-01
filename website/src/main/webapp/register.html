@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/javascript; charset=UTF-8">
+    <title>注册</title>
+
+    <link rel="stylesheet" href="/plugin/bootstrap-3.3.2-dist/css/bootstrap.css" type="text/css"/>
+    <script type="text/javascript" src="/plugin/jquery/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="/plugin/bootstrap-3.3.2-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/plugin/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="/plugin/js/jquery.form.js"></script>
+    <script type="text/javascript" src="/plugin/js/jquery.bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/loginCss.css">
+
+    <script type="text/javascript">
+        $(function () {
+            $("#registerForm").validate({
+                rules: {
+                    username: {
+                        required: true,
+                        rangelength: [4, 16],
+                        remote: {
+                            url: "/checkUsername.do",
+                            type: "post"
+                        }
+                    },
+                    password: {
+                        required: true,
+                        rangelength: [4, 16]
+                    },
+                    conformPwd: {
+                        equalTo: "#password"
+                    }
+                },
+                messages:{
+                    username:{
+                        required:"请输入用户名",
+                        rangelength:"用户名的长度在{0}~{1}之间",
+                        remote:"用户名已经存在!"
+                    },
+                    password:{
+                        required:"请输入密码",
+                        rangelength:"密码的长度在{0}~{1}之间"
+                    },
+                    confirmPwd:{
+                        equalTo:"两次输入密码不同"
+                    }
+                },
+
+                submitHandler: function (form) {
+                    //使用ajax提交表单
+                    $("#registerForm").ajaxSubmit({
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.success == true) {
+                                $.messager.confirm("提示", "注册成功！请点击确定跳转到登录页面", function () {
+                                    window.location.href = "/login.html";
+                                });
+                            } else {
+                                $.messager.popup(data.msg);
+                                window.location.href = "/register.html";
+                            }
+                        },
+                        error: function () {
+                            $.messager.popup("注册失败！");
+                            window.location.href = "/register.html";
+                        }
+                    });
+                },
+
+                errorClass: "text-danger",
+                highlight: function (element, errorClass, error) {
+                    //给输入框添加红色外框
+                    $(element).closest("div.form-group").addClass("has-error");
+
+                },
+                unhighlight: function (element, errorClass) {
+                    $(element).closest("div.form-group").removeClass("has-error");
+                }
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+
+<!-- 导航栏-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header" id="navbar-left">
+            <a class="navbar-brand" href="#">神庙</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#"> 神情</a></li>
+                <li><a href="#">神魂</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register.html">注册</a></li>
+                <li><a href="/login.html">登录 </a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!--SIGN UP-->
+<div class="login-form">
+    <div class="close"></div>
+    <div class="head-info">
+        <label class="lbl-1"> </label>
+        <label class="lbl-2"> </label>
+        <label class="lbl-3"> </label>
+    </div>
+    <div class="clear"></div>
+    <div class="avtar">
+        <img src="images/headImg.png"/>
+    </div>
+    <form id="registerForm" class="registerForm" action="/register.do" method="POST">
+        <input type="text" id="username" class="username" name="username" placeholder="用户名">
+        <div class="key">
+            <input type="password" id="password" name="password" placeholder="请输入密码">
+        </div>
+
+        <div class="key">
+            <input type="password" id="conformPwd" name="conformPwd" placeholder="请再次输入密码">
+        </div>
+
+        <div class="signin">
+            <button type="submit" id="regSubmitBtn" class="btn-submit">Sign in</button>
+        </div>
+
+    </form>
+
+</div>
+<div class="copy-rights">
+    <p>Copyright &copy; 2017 Where you yourself are right,nothing that happens to you ever has wrong
+        <a href="http://www.momo.com/" target="_blank" title="意趣">意趣</a> - Collect from <a href="http://www.momo.com/"
+                                                                                           title="意趣"
+                                                                                           target="_blank">意趣</a></p>
+</div>
+
+
+</body>
+</html>

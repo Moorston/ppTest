@@ -1,0 +1,129 @@
+/*左侧导航栏*/
+.list-group{
+    width: 260px;
+}
+#menu>li.active {
+    background: none;
+    border: 1px solid #ddd;
+}
+
+#menu>li.list-group-item {
+    padding: 0px;
+}
+#menu>li>a {
+    outline: none;
+    display: block;
+    padding: 10px 15px;
+    background: #F5F5F5;
+    text-decoration: none;
+}
+
+#menu>li:first-child>a {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+
+#menu>li.active>a {
+    background: #337ab7;
+    color: #FFFFFF;
+    border-color: #337ab7;
+}
+
+#menu>li>ul {
+    border-top: 1px solid #ddd;
+    padding-left:0px;
+    list-style: none;
+}
+
+#menu>li>ul>li {
+    height: 40px;
+    padding-left:40px;
+    line-height: 40px;
+}
+
+#menu>li>ul>li:HOVER {
+    border: 0.5px solid #2b669a;
+    border-radius: 5px;
+    background-color: #333333;
+}
+
+#menu>li>ul>li.active{
+    background-color: #337ab7;
+}
+#menu>li>ul>li.active a{
+    color: #fff;
+}
+
+/*主页个人信息*/
+.sm-account .sm-account-info {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 26px;
+    margin-bottom: 20px;
+}
+
+.sm-account .sm-account-info .sm-head-img {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    float: left;;
+    margin-left: 25px;
+}
+
+.sm-account .sm-account-info .sm-head-img>img{
+    width: 200px;
+    height: 200px;
+}
+
+.sm-account .sm-account-info .user-left {
+    margin: 30px 30px 0px 90px;
+}
+.sm-account .sm-account-info .user-left>p>span{
+    font-weight: bold;
+    color: #B266B2;
+}
+
+.account-left>a{
+    margin-left: 40px;
+}
+
+.account-info{
+    margin:26px;
+}
+
+.top-margin{
+    margin-top: 30px;
+    border-top: 1px solid #ddd;
+}
+.sm-account .sm-account-info .sm-head {
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
+.sm-account .sm-account-auth {
+
+    padding: 40px 0px 0px 30px;
+}
+.sm-account .sm-account-auth:HOVER{
+    background-color: #F8F8F8;
+}
+.sm-account .sm-account-auth h5 {
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px 0px 10px 0px;
+}
+
+.sm-account .sm-account-auth .info {
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.sm-account .sm-account-auth .sm-account-auth-left {
+    float: left;
+}
+
+.sm-account .sm-account-auth .sm-account-auth-right {
+    float: left;
+    margin-left: 10px;
+}
+

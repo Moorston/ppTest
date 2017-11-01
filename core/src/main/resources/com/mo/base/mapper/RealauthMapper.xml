@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mo.base.mapper.RealAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.mo.base.entity.RealAuth" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="realName" property="realName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="birthDate" property="birthDate" jdbcType="VARCHAR" />
+    <result column="idNumber" property="idNumber" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="image1" property="image1" jdbcType="VARCHAR" />
+    <result column="image2" property="image2" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="auditTime" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+    <resultMap id="FullResultMap" type="RealAuth" extends="BaseResultMap">
+        <association property="applier" javaType="Logininfo" columnPrefix="ap_">
+            <id property="id" column="id"/>
+            <result property="username" column="username"/>
+        </association>
+
+        <association property="auditor" javaType="Logininfo" columnPrefix="au_">
+            <id property="id" column="id"/>
+            <result property="username" column="username"/>
+        </association>
+    </resultMap>
+
+
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="ra.id" >
+    insert into `realauth` (realName, sex, birthDate,
+      idNumber, address, state,
+      image1, image2, remark,
+      auditTime, applyTime, auditor_id,
+      applier_id)
+    values (
+      #{ra.realName,jdbcType=VARCHAR},
+      #{ra.sex,jdbcType=TINYINT},
+      #{ra.birthDate,jdbcType=VARCHAR},
+      #{ra.idNumber,jdbcType=VARCHAR},
+      #{ra.address,jdbcType=VARCHAR},
+      #{ra.state,jdbcType=TINYINT},
+      #{ra.image1,jdbcType=VARCHAR},
+      #{ra.image2,jdbcType=VARCHAR},
+      #{ra.remark,jdbcType=VARCHAR},
+      #{ra.auditTime,jdbcType=TIMESTAMP},
+      #{ra.applyTime,jdbcType=TIMESTAMP},
+      #{ra.auditor.id},
+      #{ra.applier.id}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.mo.base.entity.RealAuth" >
+    update `realauth`
+    set realName = #{realName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      birthDate = #{birthDate,jdbcType=VARCHAR},
+      idNumber = #{idNumber,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      image1 = #{image1,jdbcType=VARCHAR},
+      image2 = #{image2,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      auditTime = #{auditTime,jdbcType=TIMESTAMP},
+      applyTime = #{applyTime,jdbcType=TIMESTAMP},
+      auditor_id = #{auditorId,jdbcType=BIGINT},
+      applier_id = #{applierId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <sql id="full_column">
+        ra.id, ra.realName, ra.sex, ra.birthDate, ra.idNumber, ra.address,
+        ra.state, ra.image1, ra.image2, ra.remark,
+        ra.auditTime, ra.applyTime, au.id as au_id, au.username as au_username,
+        ap.id as ap_id,ap.username as ap_username
+    </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select <include refid="full_column" />
+    from `realauth` as ra JOIN logininfo ap ON ra.applier_id = ap.id
+      LEFT JOIN logininfo au ON ra.auditor_id = au.id
+    where ra.id = #{id,jdbcType=BIGINT}
+  </select>
+
+    <sql id="base_where">
+        <where>
+            <if test="qo.beginDate!=null">
+                AND ra.applyTime &gt;= #{qo.beginDate}
+            </if>
+            <if test="qo.endDate!=null">
+                AND ra.applyTime &lt;=#{qo.endDate}
+            </if>
+            <if test="qo.state>-1">
+                AND ra.state = #{qo.state}
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryForCount" resultType="int">
+        SELECT COUNT(id) FROM realauth ra
+        <include refid="base_where" />
+    </select>
+
+  <select id="query" resultMap="FullResultMap" >
+    select ra.id, ra.realName, ra.sex, ra.birthDate, ra.idNumber, ra.address,
+    ra.state, ra.image1, ra.image2, ra.remark,
+    ra.auditTime, ra.applyTime, au.id as au_id, au.username as au_username,
+     ap.id as ap_id,ap.username as ap_username
+    from `realauth` ra JOIN logininfo ap ON ra.applier_id = ap.id
+    LEFT JOIN logininfo au ON ra.auditor_id = au.id
+    <include refid="base_where"/>
+    LIMIT #{qo.start},#{qo.pageSize}
+  </select>
+</mapper>

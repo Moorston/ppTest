@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/javascript;charset=UTF-8" >
+    <title>注册</title>
+
+    <link rel="stylesheet" href="/plugin/bootstrap-3.3.2-dist/css/bootstrap.css" type="text/css" />
+    <script type="text/javascript" src="/plugin/jquery/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="/plugin/bootstrap-3.3.2-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/plugin/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="/plugin/js/jquery.form.js"></script>
+    <script type="text/javascript" src="/plugin/js/jquery.bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/loginCss.css">
+</head>
+
+<script type="text/javascript">
+
+$(function(){
+    $("#loginForm").ajaxForm({success:function(data){
+        if(data.success){
+            $.messager.popup("登陆成功");
+            window.location.href="/personal.do";
+        }else{
+            $.messager.popup("用户名或密码错误");
+        }
+    }});
+});
+</script>
+
+<body>
+
+    <!-- 导航栏-->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header" id="navbar-left">
+                <a class="navbar-brand" href="#">神庙</a>
+            </div>
+
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li ><a href="#"> 神情</a></li>
+                    <li><a href="#">神魂</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">注册</a></li>
+                    <li><a href="/login.html">登录 </a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!--SIGN UP-->
+    <div class="login-form">
+        <div class="close"> </div>
+        <div class="head-info">
+            <label class="lbl-1"> </label>
+            <label class="lbl-2"> </label>
+            <label class="lbl-3"> </label>
+        </div>
+        <div class="clear"> </div>
+        <div class="avtar">
+            <img src="images/headImg.png" />
+        </div>
+        <form id="loginForm" class="loginForm" action="" method="post">
+            <input type="text" id="username" name="username" value="">
+            <div class="key">
+                <input type="password" id="password" name="password" value="">
+            </div>
+            <div class="signin">
+                <button type="submit" id="regSubmitBtn" class="btn-submit">Sign in</button>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="copy-rights">
+        <p>Copyright &copy; 2017 Where you yourself are right,nothing that happens to you ever has wrong
+            <a href="http://www.momo.com/" target="_blank" title="意趣">意趣</a> - Collect from <a href="http://www.momo.com/" title="意趣" target="_blank">意趣</a></p>
+    </div>
+
+
+</body>
+</html>
